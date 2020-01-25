@@ -7,6 +7,10 @@ module.exports = function getAPIKey (options, callback) {
   var cookieJar = request.jar();
   var _request = request.defaults({ jar: cookieJar });
 
+  if (options.hasOwnProperty('requestOptions')) {
+    _request = _request.defaults(options.requestOptions);
+  }
+
   options.webCookie.forEach(function (name) {
     cookieJar.setCookie(request.cookie(name), steamDomain);
   });
